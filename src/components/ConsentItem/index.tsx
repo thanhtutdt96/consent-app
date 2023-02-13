@@ -18,7 +18,9 @@ const ConsentItem: FC<Props> = ({ name, language, audioUrl, isConsentAgreed, ind
   };
 
   return (
-    <div className={`flex justify-between px-md py-sm ${index % 2 === 0 ? 'consent-item--even' : ''}`}>
+    <div
+      className={`flex justify-between px-md py-sm ${index % 2 === 0 ? 'consent-item--even' : ''}`}
+    >
       <div className="flex column justify-center">
         <div className="consent-item__name text-bold mb-xs">{name}</div>
         <div className="text-xs consent-item__language">Language: {language}</div>

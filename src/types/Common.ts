@@ -19,5 +19,5 @@ export interface ConsentItemData {
   name: string;
   language: string;
   is_consent_agreed?: boolean;
-  audio_url?: string | null;
+  audio_data?: string | null;
 }

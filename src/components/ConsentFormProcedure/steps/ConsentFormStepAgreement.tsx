@@ -13,6 +13,7 @@ interface Props {
 }
 
 const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }) => {
+  const [audioData, setAudioData] = useState<string | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isConsentAgreed, setIsConsentAgreed] = useState(false);
 
@@ -20,10 +21,11 @@ const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }
 
   const retryHandler = () => {
     setAudioUrl(null);
+    setAudioData(null);
   };
 
   const submitHandler = () => {
-    if (!audioUrl) {
+    if (!audioData) {
       return;
     }
 
@@ -32,7 +34,7 @@ const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }
       {
         ...currentFormData,
         is_consent_agreed: isConsentAgreed,
-        audio_url: audioUrl,
+        audio_data: audioData,
       },
     ]);
 
@@ -48,19 +50,22 @@ const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }
         language={currentFormData.language}
         audioUrl={audioUrl}
         setAudioUrl={setAudioUrl}
+        setAudioData={setAudioData}
         isConsentAgreed={isConsentAgreed}
         setIsConsentAgreed={setIsConsentAgreed}
       />
 
       <div className="flex justify-end mt-lg">
-        <Button
-          type="submit"
-          iconUrl="src/assets/svg/retry.svg"
-          className="py-sm px-md mr-sm"
-          onClick={retryHandler}
-        >
-          Retry
-        </Button>
+        {audioUrl && (
+          <Button
+            type="button"
+            iconUrl="src/assets/svg/retry.svg"
+            className="py-sm px-md mr-sm"
+            onClick={retryHandler}
+          >
+            Retry
+          </Button>
+        )}
 
         <Button
           type="submit"

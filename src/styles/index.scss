@@ -1,7 +1,7 @@
-@import "variable";
-@import "typo";
-@import "buttons";
-@import "utils";
+@import 'variable';
+@import 'typo';
+@import 'buttons';
+@import 'utils';
 
 * {
   box-sizing: border-box;
@@ -19,7 +19,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--color-body-1);
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--color-body-2);
   }
 }

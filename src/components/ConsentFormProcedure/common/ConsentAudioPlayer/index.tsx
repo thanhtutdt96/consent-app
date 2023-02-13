@@ -6,17 +6,24 @@ interface Props {
   isPlaying: boolean;
   togglePlayback: () => void;
   audioUrl: string;
+  className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-const ConsentAudioPlayer: FC<Props> = ({ isPlaying, togglePlayback, audioUrl, size = 'xl' }) => (
+const ConsentAudioPlayer: FC<Props> = ({
+  isPlaying,
+  togglePlayback,
+  audioUrl,
+  size = 'xl',
+  className,
+}) => (
   <>
     <Button
       iconUrl={isPlaying ? 'src/assets/svg/pause.svg' : 'src/assets/svg/play.svg'}
       rounded
       size={size}
       onClick={togglePlayback}
-      className="mb-sm"
+      className={className}
     />
 
     <AudioPlayer audioUrl={audioUrl} isPlaying={isPlaying} onEnded={togglePlayback} />

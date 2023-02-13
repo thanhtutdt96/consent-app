@@ -9,7 +9,6 @@ import {
   useState,
 } from 'react';
 import Button from 'components/Common/Button';
-import AudioPlayer from 'components/ConsentFormProcedure/common/AudioPlayer';
 import ConsentAudioPlayer from 'components/ConsentFormProcedure/common/ConsentAudioPlayer';
 import { ConsentItemLanguage } from 'types/Common';
 
@@ -18,6 +17,7 @@ interface Props {
   language: string;
   audioUrl: string | null;
   setAudioUrl: Dispatch<SetStateAction<string | null>>;
+  setAudioData: Dispatch<SetStateAction<string | null>>;
   isConsentAgreed: boolean;
   setIsConsentAgreed: Dispatch<SetStateAction<boolean>>;
 }
@@ -27,6 +27,7 @@ const ConsentRecognition: FC<Props> = ({
   language,
   audioUrl,
   setAudioUrl,
+  setAudioData,
   isConsentAgreed,
   setIsConsentAgreed,
 }) => {
@@ -36,12 +37,23 @@ const ConsentRecognition: FC<Props> = ({
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-
   const [isPlaying, setIsPlaying] = useState(false);
 
   const isRecordExisted = useMemo(() => {
     return !isRecording && transcript.length > 0 && audioUrl;
   }, [audioUrl, isRecording, transcript.length]);
+
+  const saveAudioData = useCallback(
+    (blob: Blob) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        const base64data = reader.result as string;
+        setAudioData(base64data);
+      };
+    },
+    [setAudioData],
+  );
 
   const initSpeechRecognition = useCallback(() => {
     recognitionRef.current = new window.webkitSpeechRecognition();
@@ -91,10 +103,12 @@ const ConsentRecognition: FC<Props> = ({
           const audioBlob = new Blob(audioChunksRef.current);
           const url = URL.createObjectURL(audioBlob);
           setAudioUrl(url);
+
+          saveAudioData(audioBlob);
         });
       })
       .catch((error) => console.error(error));
-  }, [setAudioUrl]);
+  }, [saveAudioData, setAudioUrl]);
 
   const stopMediaRecorder = () => {
     if (!mediaRecorderRef.current) {
@@ -151,6 +165,7 @@ const ConsentRecognition: FC<Props> = ({
                 audioUrl={audioUrl}
                 isPlaying={isPlaying}
                 togglePlayback={togglePlayback}
+                className="mb-sm"
               />
             )}
           </>

@@ -1,4 +1,4 @@
-@import "variable";
+@import 'variable';
 
 .btn {
   border: 2px solid #000;
@@ -10,11 +10,17 @@
 }
 
 $buttonBackgroundColorValues: (
-  "success": $primary, "info": $secondary, "warning": $warning, "danger": $negative,
+  'success': $primary,
+  'info': $secondary,
+  'warning': $warning,
+  'danger': $negative,
 );
 
 $buttonTextColorValues: (
-  "success": green, "info": dodgerblue, "warning": orange, "danger": red,
+  'success': green,
+  'info': dodgerblue,
+  'warning': orange,
+  'danger': red,
 );
 
 @each $name, $value in $buttonBackgroundColorValues {
@@ -28,7 +34,7 @@ $buttonTextColorValues: (
     &:disabled {
       background-color: $value;
       color: #fff;
-      opacity: .65;
+      opacity: 0.65;
     }
   }
 }
