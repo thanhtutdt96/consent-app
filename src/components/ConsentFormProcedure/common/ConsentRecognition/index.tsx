@@ -10,11 +10,15 @@ import {
 } from 'react';
 import Button from 'components/Common/Button';
 import ConsentAudioPlayer from 'components/ConsentFormProcedure/common/ConsentAudioPlayer';
-import { ConsentItemLanguage } from 'types/Common';
+import { useAppDispatch } from 'redux/hooks';
+import { alert } from 'redux/slices/toastSlice';
+import { ConsentItemAgreement, ConsentItemLanguage, ToastType } from 'types/Common';
 
 interface Props {
   className?: string;
   language: string;
+  yesLabel: string;
+  noLabel: string;
   audioUrl: string | null;
   setAudioUrl: Dispatch<SetStateAction<string | null>>;
   setAudioData: Dispatch<SetStateAction<string | null>>;
@@ -25,6 +29,8 @@ interface Props {
 const ConsentRecognition: FC<Props> = ({
   className,
   language,
+  yesLabel,
+  noLabel,
   audioUrl,
   setAudioUrl,
   setAudioData,
@@ -38,6 +44,8 @@ const ConsentRecognition: FC<Props> = ({
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const dispatch = useAppDispatch();
 
   const isRecordExisted = useMemo(() => {
     return !isRecording && transcript.length > 0 && audioUrl;
@@ -63,28 +71,31 @@ const ConsentRecognition: FC<Props> = ({
 
       setTranscript(speechToText);
 
-      if (language === ConsentItemLanguage.EN) {
-        if (speechToText.includes('yes')) {
-          setIsConsentAgreed(true);
+      switch (language) {
+        case ConsentItemLanguage.FR:
+          if (speechToText.includes(ConsentItemAgreement.OUI.toLowerCase())) {
+            setIsConsentAgreed(true);
 
-          return;
-        }
+            return;
+          }
 
-        if (speechToText.includes('no')) {
-          setIsConsentAgreed(false);
-        }
+          if (speechToText.includes(ConsentItemAgreement.NON.toLowerCase())) {
+            setIsConsentAgreed(false);
+          }
 
-        return;
-      }
+          break;
+        default:
+          if (speechToText.includes(ConsentItemAgreement.YES.toLowerCase())) {
+            setIsConsentAgreed(true);
 
-      if (speechToText.includes('oui')) {
-        setIsConsentAgreed(true);
+            return;
+          }
 
-        return;
-      }
+          if (speechToText.includes(ConsentItemAgreement.NO.toLowerCase())) {
+            setIsConsentAgreed(false);
+          }
 
-      if (speechToText.includes('non')) {
-        setIsConsentAgreed(false);
+          break;
       }
     };
   }, [language, setIsConsentAgreed]);
@@ -107,8 +118,10 @@ const ConsentRecognition: FC<Props> = ({
           saveAudioData(audioBlob);
         });
       })
-      .catch((error) => console.error(error));
-  }, [saveAudioData, setAudioUrl]);
+      .catch((error) => {
+        dispatch(alert(error.toString() || 'Error', ToastType.ERROR));
+      });
+  }, [dispatch, saveAudioData, setAudioUrl]);
 
   const stopMediaRecorder = () => {
     if (!mediaRecorderRef.current) {
@@ -171,7 +184,7 @@ const ConsentRecognition: FC<Props> = ({
           </>
         )}
         {isRecordExisted && (
-          <p className="mb-0">You responded “{isConsentAgreed ? 'Yes' : 'No'}”</p>
+          <p className="mb-0">You responded “{isConsentAgreed ? yesLabel : noLabel}”</p>
         )}
       </div>
     </div>

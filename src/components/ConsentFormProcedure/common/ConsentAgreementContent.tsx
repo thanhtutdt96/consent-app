@@ -1,6 +1,11 @@
-import { memo } from 'react';
+import { FC, memo } from 'react';
 
-const ConsentAgreementContent = () => (
+interface Props {
+  yesLabel: string;
+  noLabel: string;
+}
+
+const ConsentAgreementContent: FC<Props> = ({ yesLabel, noLabel }) => (
   <>
     <p>
       You understand that by using the site or site services, you agree to be bound by this
@@ -8,9 +13,11 @@ const ConsentAgreementContent = () => (
       site or the site services.
     </p>
 
-    <p>Do you agree to this agreement? Please respond by saying “Yes” or “No”.</p>
+    <p>
+      Do you agree to this agreement? Please respond by saying “{yesLabel}” or “{noLabel}”.
+    </p>
 
-    <p className="text-center text-sm">(Hold the mic button to speak and release)</p>
+    <p className="text-center text-sm">(Hold the mic button to speak and release when ready)</p>
   </>
 );
 

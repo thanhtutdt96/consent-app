@@ -1,10 +1,15 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
 import Button from 'components/Common/Button';
 import ConsentAgreementContent from 'components/ConsentFormProcedure/common/ConsentAgreementContent';
 import ConsentRecognition from 'components/ConsentFormProcedure/common/ConsentRecognition';
 import { CONSENT_LIST_KEY } from 'assets/constants';
 import useLocalStorage from 'hooks/useLocalStorage';
-import { ConsentFormStep, ConsentItemData } from 'types/Common';
+import {
+  ConsentFormStep,
+  ConsentItemAgreement,
+  ConsentItemData,
+  ConsentItemLanguage,
+} from 'types/Common';
 import './styles.scss';
 
 interface Props {
@@ -18,6 +23,22 @@ const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }
   const [isConsentAgreed, setIsConsentAgreed] = useState(false);
 
   const [, setConsentList] = useLocalStorage<ConsentItemData[]>(CONSENT_LIST_KEY, []);
+
+  const yesLabel = useMemo(
+    () =>
+      currentFormData.language === ConsentItemLanguage.EN
+        ? ConsentItemAgreement.YES
+        : ConsentItemAgreement.OUI,
+    [currentFormData.language],
+  );
+
+  const noLabel = useMemo(
+    () =>
+      currentFormData.language === ConsentItemLanguage.EN
+        ? ConsentItemAgreement.NO
+        : ConsentItemAgreement.NON,
+    [currentFormData.language],
+  );
 
   const retryHandler = () => {
     setAudioUrl(null);
@@ -43,11 +64,13 @@ const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }
 
   return (
     <div className="consent-form-step-agreement">
-      <ConsentAgreementContent />
+      <ConsentAgreementContent yesLabel={yesLabel} noLabel={noLabel} />
 
       <ConsentRecognition
         className="mt-lg"
         language={currentFormData.language}
+        yesLabel={yesLabel}
+        noLabel={noLabel}
         audioUrl={audioUrl}
         setAudioUrl={setAudioUrl}
         setAudioData={setAudioData}

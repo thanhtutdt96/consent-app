@@ -14,6 +14,13 @@ export enum ConsentItemLanguage {
   'FR' = 'French',
 }
 
+export enum ConsentItemAgreement {
+  'YES' = 'Yes',
+  'NO' = 'No',
+  'OUI' = 'Oui',
+  'NON' = 'Non',
+}
+
 export interface ConsentItemData {
   uuid?: string;
   name: string;
