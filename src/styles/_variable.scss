@@ -1,0 +1,27 @@
+$primary: #29c58c;
+$secondary: #389ced;
+$consecutive-secondary: #6cade3;
+
+$negative: #f45145;
+$consecutive-negative: #f18e6a;
+$warning: #f6a665;
+
+$border: #ccc;
+$other: #fff;
+
+$body-1: #666;
+$body-2: #444;
+
+
+:root {
+  --color-primary: #{$primary};
+  --color-secondary: #{$secondary};
+  --color-consecutive-secondary: #{$consecutive-secondary};
+  --color-negative: #{$negative};
+  --color-consecutive-negative: #{$consecutive-negative};
+  --color-warning: #{$warning};
+  --color-other: #{$other};
+  --color-border: #{$border};
+  --color-body-1: #{$body-1};
+  --color-body-2: #{$body-2};
+}
