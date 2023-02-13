@@ -14,25 +14,29 @@ const Consents = () => {
     <>
       <h2 className="text-center text-lg mb-xl">All Consents</h2>
       <div className="flex justify-center">
-        <div className="consents__list-wrapper">
-          <ConsentItemHeader />
+        {consentList.length > 0 ? (
+          <div className="consents__list-wrapper">
+            <ConsentItemHeader />
 
-          {consentList.map(
-            (
-              { name, language, audio_data: audioData, is_consent_agreed: isConsentAgreed },
-              index,
-            ) => (
-              <ConsentItem
-                key={index}
-                index={index}
-                name={name}
-                language={language}
-                audioUrl={dataUriToBlobUri(audioData || '')}
-                isConsentAgreed={isConsentAgreed}
-              />
-            ),
-          )}
-        </div>
+            {consentList.map(
+              (
+                { name, language, audio_data: audioData, is_consent_agreed: isConsentAgreed },
+                index,
+              ) => (
+                <ConsentItem
+                  key={index}
+                  index={index}
+                  name={name}
+                  language={language}
+                  audioUrl={dataUriToBlobUri(audioData || '')}
+                  isConsentAgreed={isConsentAgreed}
+                />
+              ),
+            )}
+          </div>
+        ) : (
+          <p>No consents available</p>
+        )}
       </div>
     </>
   );

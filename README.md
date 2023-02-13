@@ -1,9 +1,8 @@
 # Project - *Consent App*
 
-Built with Vite, React, Redux Toolkit, Formik, SCSS, TypeScript, Eslint.
+Built with Vite, React, Formik, SCSS, TypeScript, Eslint.
 
 ## Running on Local
-- Change `.env.example` to `.env` (if `.env` not exist)
 - Install dependencies 
 ```
 yarn install
@@ -18,14 +17,13 @@ yarn dev
 
 The following functionalities are implemented:
 
-- [x] Calendar component (built from scratch).
-- [x] Calculate and render available time blocks based on working times and scheduled events.
-- [x] Support 2 overlapped time blocks and different styles for consecutive time blocks.
-- [x] Add and save additional available time blocks, support Drag & Drop to select multiple date blocks.
+- [x] Form input for name and language.
+- [x] Record & recognize speech to determine consent agreement.
+- [x] Save submitted data to local storage and display list of recorded consents.
 
 ## License
 
-    Copyright [2022] [Tu Pham]
+    Copyright [2023] [Tu Pham]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
