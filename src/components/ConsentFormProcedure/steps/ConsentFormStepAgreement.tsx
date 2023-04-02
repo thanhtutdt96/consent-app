@@ -3,6 +3,8 @@ import Button from 'components/Common/Button';
 import ConsentAgreementContent from 'components/ConsentFormProcedure/common/ConsentAgreementContent';
 import ConsentRecognition from 'components/ConsentFormProcedure/common/ConsentRecognition';
 import { CONSENT_LIST_KEY } from 'assets/constants';
+import arrowRightIcon from 'assets/svg/arrow-right.svg';
+import retryIcon from 'assets/svg/retry.svg';
 import useLocalStorage from 'hooks/useLocalStorage';
 import {
   ConsentFormStep,
@@ -82,7 +84,7 @@ const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }
         {audioUrl && (
           <Button
             type="button"
-            iconUrl="src/assets/svg/retry.svg"
+            iconUrl={retryIcon}
             className="py-sm px-md mr-sm"
             onClick={retryHandler}
           >
@@ -92,7 +94,7 @@ const ConsentFormStepAgreement: FC<Props> = ({ currentFormData, setCurrentStep }
 
         <Button
           type="submit"
-          iconUrl="src/assets/svg/arrow-right.svg"
+          iconUrl={arrowRightIcon}
           className="py-sm px-md"
           disabled={!audioUrl}
           onClick={submitHandler}

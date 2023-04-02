@@ -1,6 +1,7 @@
 import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import Button from 'components/Common/Button';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import arrowRightIcon from 'assets/svg/arrow-right.svg';
 import { ConsentFormStep, ConsentItemData, ConsentItemLanguage } from 'types/Common';
 
 const FormErrorMessage = ({ children }: { children: ReactNode }) => (
@@ -84,7 +85,7 @@ const ConsentFormStepInfo: FC<Props> = ({ setCurrentStep, setCurrentFormData }) 
           </div>
 
           <div className="flex justify-end">
-            <Button type="submit" iconUrl="src/assets/svg/arrow-right.svg" className="py-sm px-md">
+            <Button type="submit" iconUrl={arrowRightIcon} className="py-sm px-md">
               Next
             </Button>
           </div>

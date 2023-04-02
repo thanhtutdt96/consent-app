@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import Button from 'components/Common/Button';
 import AudioPlayer from 'components/ConsentFormProcedure/common/AudioPlayer';
+import pauseIcon from 'assets/svg/pause.svg';
+import playIcon from 'assets/svg/play.svg';
 
 interface Props {
   isPlaying: boolean;
@@ -19,7 +21,7 @@ const ConsentAudioPlayer: FC<Props> = ({
 }) => (
   <>
     <Button
-      iconUrl={isPlaying ? 'src/assets/svg/pause.svg' : 'src/assets/svg/play.svg'}
+      iconUrl={isPlaying ? pauseIcon : playIcon}
       rounded
       size={size}
       onClick={togglePlayback}

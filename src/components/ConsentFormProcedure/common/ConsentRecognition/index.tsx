@@ -12,6 +12,8 @@ import Button from 'components/Common/Button';
 import ConsentAudioPlayer from 'components/ConsentFormProcedure/common/ConsentAudioPlayer';
 import { useAppDispatch } from 'redux/hooks';
 import { alert } from 'redux/slices/toastSlice';
+import recordIcon from 'assets/svg/record.svg';
+import recordingIcon from 'assets/svg/recording.svg';
 import { ConsentItemAgreement, ConsentItemLanguage, ToastType } from 'types/Common';
 
 interface Props {
@@ -162,7 +164,7 @@ const ConsentRecognition: FC<Props> = ({
       <div className="flex column items-center">
         {!isRecordExisted ? (
           <Button
-            iconUrl={isRecording ? 'src/assets/svg/recording.svg' : 'src/assets/svg/record.svg'}
+            iconUrl={isRecording ? recordingIcon : recordIcon}
             rounded
             size="xl"
             onTouchStart={startRecording}
